@@ -1,0 +1,255 @@
+@import "variables";
+
+// small screens not foldable devices
+@media screen and (min-width: 320px) {
+
+  .grid-column-4 {
+    width: 75%;
+  }
+}
+
+// small tabs // 2columns
+@media screen and (min-width: 515px) {
+
+  .slide-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .showcase .showcase-writeup {
+    h3 {
+      font-size: 3rem;
+    }
+
+    p {
+      line-height: 1.4rem;
+      font-size: 1.06rem;
+    }
+
+    .showcase-link a {
+      font-size: 1rem;
+      padding: 0.6rem;
+    }
+  }
+
+  .banner {
+    height: 30vh;
+  }
+
+  .category-columns {
+    grid-auto-rows: 11rem;
+    grid-gap: 0.8rem;
+
+    .grids a {
+      font-size: 0.95rem;
+      padding: 0.45rem 0.8rem;
+    }
+  }
+
+  .grid-column-4 {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 19.5rem;
+    grid-gap: 1rem;
+  }
+
+  // cart table 
+  .mobile-view-cart{
+    display: none;
+  }
+
+  .cart-table{
+    display: block;
+  }
+  .cart-table table .image-th {
+    display: block;
+  }
+
+  .cart-table table .image-tr {
+    display: block;
+  }
+
+  .services {
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  .checkout-form-order-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1.4rem;
+  }
+
+  // add-products
+  .addproductform-container .grid-three {
+    grid-template-columns: repeat(3, 1fr);
+    // grid-gap: 1.7rem;
+  }
+
+  .addproductform-container .grid-two {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-grids {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Tablets // # columns 3
+@media screen and (min-width: 700px) {
+
+  .showcase .showcase-writeup {
+    h3 {
+      font-size: 3.2rem;
+    }
+
+    p {
+      line-height: 1.4rem;
+      font-size: 1rem;
+    }
+
+    .showcase-link a {
+      font-size: 1rem;
+      padding: 0.4rem;
+    }
+  }
+
+  .grid-column-4 {
+    width: 95%;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .insta-follow {
+    display: block;
+  }
+
+  .services {
+    display: flex;
+
+    justify-content: space-between;
+
+  }
+
+  .product-details-cart {
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 0.8rem;
+
+    .form-container {
+      width: 100%;
+
+      button[type="submit"] {
+        width: 100%;
+      }
+    }
+  }
+
+  .coupon-cart-total {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.5rem;
+  }
+
+
+  footer .footer-grids .footer-grid h5 {
+    font-size: 1.15rem;
+
+  }
+
+}
+
+
+@media screen and (min-width: 805px) {
+
+  .nav_links_container_mobile,
+  .mobile_sidebar,
+  nav .nav_toggle {
+    display: none;
+
+  }
+
+  .nav_links_container {
+    display: flex;
+  }
+
+  .grid-column-4 {
+    grid-gap: 1.3rem;
+  }
+
+  .banner {
+    height: 45vh;
+  }
+
+}
+
+// laptop screens
+@media screen and (min-width: 850px) {
+  .grid-column-4 {
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 0.75rem;
+  }
+
+  .category-columns {
+    grid-auto-rows: 13rem;
+    grid-gap: 1srem;
+
+    .grids a {
+      font-size: 1rem;
+      padding: 0.6rem 0.9rem;
+    }
+  }
+
+  footer .footer-grids .footer-grid {
+    h5 {
+      margin-bottom: 0.8rem;
+      font-size: 1.16rem;
+    }
+
+    ul li a {
+      font-size: 0.95rem;
+    }
+
+  }
+
+  .product-details-cart {
+    // max-width: 85%;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2.2rem;
+
+    .form-container {
+      max-width: 75%;
+
+      button[type="submit"] {
+        width: 50%;
+      }
+    }
+  }
+
+  .coupon-cart-total {
+    grid-gap: 2.5rem;
+  }
+}
+
+// <div class="paginators">
+//     {% if products.has_previous %}
+//       <a href="?page=1">First</a>
+//       <a  href="?page={{page_obj.previous_page_number}}">Prev</a> 
+//     {% endif %}
+
+//     {% for num in products.paginator.page_range %}
+//       {% if products.number == num %}
+//       <a class="current-page" href="?page={{num}}">{{num}}</a>
+
+//       {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+//       <a href="?page={{num}}">{{num}}</a>
+//       {% endif %}
+//     {% endfor %}
+
+//     {% if products.has_next %}
+//       <a href="?page={{products.next_page_number}}">Next</a>
+//       <a class="last-page" href="?page={{products.paginator.num_pages}}">Last</a> 
+//     {% endif %}
+
+//   </div>

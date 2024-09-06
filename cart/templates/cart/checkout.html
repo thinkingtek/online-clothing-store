@@ -1,0 +1,115 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load humanize %}
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+
+<div class="inner-container">
+  {% include 'cart/progress.html' %}
+</div>
+
+<div class="inner-container">
+
+  <div class="checkout-form-order-summary">
+
+    <div class="padding-grid checkout-form">
+      <h4>Shipping Address</h4>
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-div">
+          {{form.state}}
+          {%  for error in form.state.errors %}
+            <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+        <div class="form-div">
+          {{form.address_line}}
+          {%  for error in form.address_line.errors %}
+            <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+        <div class="form-div grid">
+          <div>
+            {{form.phone}}
+            {%  for error in form.phone.errors %}
+            <p class="errors">{{error}}</p>
+            {%  endfor  %}
+          </div>
+          <div>
+            {{form.zip_code}}
+            {%  for error in form.zip_code.errors %}
+            <p class="errors">{{error}}</p>
+            {%  endfor  %}
+          </div>
+        </div>
+        <div class="form-div grid">
+          <div>
+            {{form.city}}
+            {%  for error in form.city.errors %}
+            <p class="errors">{{error}}</p>
+            {%  endfor  %}
+          </div>
+
+          <div>
+            {{form.landmark}}
+            {%  for error in form.landmark.errors %}
+            <p class="errors">{{error}}</p>
+            {%  endfor  %}
+          </div>
+        </div>
+        <div class="form-div">
+          {{form.company_name}}
+          <p>{{form.company_name.help_text}}</p>
+          {%  for error in form.company_name.errors %}
+            <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+        <div class="form-div">
+          {{form.selected_shipping_address}}
+        </div>
+        <div class="form-div">
+          {{form.terms_and_conditions}}
+          {{form.terms_and_conditions.label_tag}}
+        </div>
+        <button type="submit">PROCEED TO PAYMENT</button>
+      </form>
+    </div>
+
+    <div class="padding-grid order-summary">
+      <h4>Order summary</h4>
+
+      <div class="flex-cart">
+        <h5>Subtotal</h5>
+        <h5 class="black-text">&#8358;{{order.get_subtotal|intcomma}}</h5>
+      </div>
+      <div class="flex-cart">
+        <h5>Shipping cost</h5>
+        {% if order.shipping_method.price != 0 %}
+        <h5>&#8358;{{order.shipping_method.price|intcomma}}</h5>
+        {% else %}
+        <h5>Free</h5>
+        {% endif %}
+      </div>
+      <div class="flex-cart">
+        <h5>Total</h5>
+        {% if order.get_ship_price != 0 %}
+        <h5>&#8358;{{order.get_overall_total|intcomma}}</h5>
+        {% else %}
+        <h5>&#8358;0.00</h5>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+

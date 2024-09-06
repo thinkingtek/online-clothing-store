@@ -1,0 +1,65 @@
+{% extends 'form_base.html' %}
+{% load static %}  
+{% block form %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h2>Register here </h2>
+        <div class="form-grid">
+            <div class="form-input">
+                {{form.first_name.label_tag}}
+                {{form.first_name}}
+                {% for errors in form.first_name.errors %}
+                    <p class="error">{{errors}}</p>
+                {% endfor %}
+            </div>
+            <div class="form-input">
+                {{form.last_name.label_tag}}
+                {{form.last_name}}
+                {% for errors in form.last_name.errors %}
+                    <p class="error">{{errors}}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-input">
+            {{form.email.label_tag}}
+            {{form.email}}
+            {% for errors in form.email.errors %}
+                <p class="error">{{errors}}</p>
+            {% endfor %}
+        </div>
+        
+        <div class="form-input eyepass">
+            {{form.password1.label_tag}}
+            {{form.password1}}
+            <img onclick="return showpassword1();" class="eye" id="showpass1"  src="{% static 'img/icons/invisible.png' %}" alt="" srcset="">
+            <img onclick="return showpassword1();" class="eye" id="hidepass1"  src="{% static 'img/icons/icons8-eye-30.png' %}" alt="" srcset="">
+
+        </div>
+        <div class="form-input eyepass">
+            {{form.password2.label_tag}}
+            {{form.password2}}
+
+            <img onclick="return showpassword2();" class="eye" id="showpass2"  src="{% static 'img/icons/invisible.png' %}" alt="" srcset="">
+            <img onclick="return showpassword2();" class="eye" id="hidepass2"  src="{% static 'img/icons/icons8-eye-30.png' %}" alt="" srcset="">
+
+            
+            {% if form.password2.errors %}
+            {% for errors in form.password2.errors %}
+            <p class="error">{{errors}}</p>
+            {% endfor %}
+            {% else %}
+            <p class="help-text">{{form.password2.help_text}}</p>
+            {% endif %}
+        </div>
+        <div class="form-input">
+            <input type="submit" value="Submit" />
+        </div>
+    </form> 
+    <div class="have-account">
+        <p>Already have an account ?</p>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'ecomm:home' %}" class="home">Home</a>
+    </div>
+
+{% endblock form %}

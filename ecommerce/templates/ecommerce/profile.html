@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %}Profile page{% endblock %}
+
+{% block header %}{% include "header1.html" %}{% endblock header %}
+
+{% block content %}
+
+<section class="contact-container">
+   {% include 'notify.html' %}
+   <div class="profile">
+      THIS IS THE USER PROFILE PAGE
+      <h1>{{request.user.email}}</h1>
+      <div class="cart-table">
+      <h4>Orders</h4>
+        <table cellspacing=0 >
+           <thead>
+              <tr>
+                 <th>Reference No.</th>
+                 <th>Date</th>
+                 <th>Amount</th>
+                 <th>Payment status</th>
+              </tr>
+           </thead>
+           <tbody>
+              {% for order in orders %}
+              <tr>
+                 <td>
+                    <div class="product-details">
+                      <a href="{% url 'cart:order-detail' order.pk %}"><h5>{{order.reference_number}}</h5></a>
+                    </div>
+                 </td>
+                 <td>
+                 {{order.ordered_date}}
+                 </td>
+                 <td>
+                    {{order.get_total}}
+                 </td>
+                 <td>
+                 {% if order.ordered %}PAID{% else %}NOT PAID{% endif %}
+                 </td>
+              </tr>
+              {% empty %}
+              <tr class="empty-tr">
+                 <td colspan="5">
+                    You haven't made any oders. 
+                    <a class="empty-cart" href="{% url 'ecomm:shop' %}">Go to shop
+                    </a>
+                 </td>
+              </tr>
+              {% endfor %}
+           </tbody>
+        </table>
+     </div>
+   </div>
+   
+ </section>
+ 
+ {% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cart_templates_tags %}
+{% block head_title %}Shop Categories{% endblock %}
+
+{% block header %}
+<header class="main-header no-bg">
+   <nav class="main-nav">
+     <div class="logo">
+       <a href="{% url 'ecomm:home' %}"
+         ><img src="https://img.icons8.com/ios-filled/30/000000/cherry.png"/></a>
+       <h3>Cherry's SHop</h3>
+     </div>
+
+     <div class="middle-nav">
+      <ul>
+        <li><a href="{% url 'ecomm:home' %}">Home</a></li>
+        <li><a class="current" href="{% url 'ecomm:shop' %}">Shop</a></li>
+        <li><a href="">Account</a></li>
+        {% if user.is_staff %}
+         <li><a href="{% url 'staff:staff' %}">Staff</a></li>
+         {% else %}
+         <li><a href="{% url 'ecomm:contact' %}">Contact</a></li>
+         {% endif %}
+       </ul>
+     </div>
+
+     <div class="right-nav">
+       <ul>
+         <li>
+           <form action="">
+             <input
+               type="text"
+               class="search-input"
+               placeholder="Search Items"
+             />
+             <button type="submit" value="submit" class="btn-submit">
+               <i class="las la-search search-icon"></i>
+             </button>
+           </form>
+         </li>
+
+         <li>
+           <a href="" class="user"
+             ><img src="https://img.icons8.com/dotty/80/000000/user.png"
+           /></a>
+         </li>
+
+         <li>
+           <a href="{% url 'cart:cart-items' %}" style="position: relative"
+             ><img src="{% static 'icons/cart.png' %}" />
+            {% if order.items.count > 0 %}
+             <p class="cart-num">{{request|cart_item_count}}</p></a>
+            {% endif %}
+         </li>
+
+         <li>
+           <a href=""
+             ><img
+               src="https://img.icons8.com/wired/64/000000/ringer-volume.png"
+           /></a>
+         </li>
+
+         <li class="contact-num">
+           <p>2348101036356</p>
+         </li>
+       </ul>
+     </div>
+   </nav>
+</header>
+{% endblock header %}
+
+{% block content %}
+<!-- Category Page -->
+<section class="container">
+  <div class="category-list">
+    <a href="{% url 'ecomm:shop' %}" class="current">New products</a>
+    {% for category in categories %}
+    <a href="?category={{category.name}}">{{category.name}}</a>
+    {% endfor %}
+    {% comment %} <a href="">Women</a>
+    <a href="">Children</a> {% endcomment %}
+  </div>
+  <div class="grid-products-container">
+
+    {% for product in products %}
+    <div class="grid-items">
+      <div class="img-icons">
+        {% if product.tag %}
+          <div class="p-tag">{{product.tag}}</div>
+        {% endif %}
+        <div class="product-image">
+          <img src="{{product.image_1.url}}" alt="" />
+        </div>
+        <div class="cart-icons">
+          <a href=""><i class="las la-cart-plus la-1x"></i></a
+          ><a href=""><i class="las la-heart"></i></a
+          ><a href=""><i class="las la-signal"></i></a>
+        </div>
+      </div>
+      <div class="products-details">
+        <div class="new-price">
+          <a href="{% url 'ecomm:product-detail' product.slug %}">
+            {{product.title}}
+          </a>
+        </div>
+        <div class="price">
+          <div class="new-price"><p>N{{product.discount_price}}</p></div>
+          {% if product.discount_price %}
+          <div class="old-price"><p class="old-p">N{{product.price}}</p></div> 
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  </div>
+
+  <div class="paginator">
+    <a href="" class="arrow">«</a>
+    <a href="" class="current">01</a>
+    <a href="">02</a>
+    <a href="">03</a>
+    <a href="">04</a>
+    <a href="" class="arrow">»</a>
+  </div>
+  
+</section>
+
+{% endblock content %}
+
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}

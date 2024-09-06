@@ -1,0 +1,149 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load humanize %}
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+<div class="no-overflow">
+  <div class="inner-container">
+    <div class="product-details-cart">
+      <div class="swiper-container no-overflow">
+        <div class="swiper gallery-top">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="{{product.image_1.url}}" alt="" srcset="">
+            </div>
+            {% if product.image_2 %}
+            <div class="swiper-slide">
+              <img src="{{product.image_2.url}}" alt="" srcset="">
+            </div>
+            {% endif %}
+            {% if product.image_3 %}
+            <div class="swiper-slide">
+              <img src="{{product.image_3.url}}" alt="" srcset="">
+            </div>
+            {% endif %}
+            {% if product.image_4 %}
+            <div class="swiper-slide">
+              <img src="{{product.image_4.url}}" alt="" srcset="">
+            </div>
+            {% endif %}
+          </div>
+          
+          <!-- Add Arrows -->
+          <div class="swiper-button-next swiper-button-white"></div>
+          <div class="swiper-button-prev swiper-button-white"></div>
+        </div>
+        <div class="swiper gallery-thumbs">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="{{product.image_1.url}}" alt="" srcset=""></div>
+            {% if product.image_2 %}
+            <div class="swiper-slide"><img src="{{product.image_2.url}}" alt="" srcset=""></div>
+            {% endif %}
+            {% if product.image_3 %}
+            <div class="swiper-slide"><img src="{{product.image_3.url}}" alt="" srcset=""></div>
+            {% endif %}
+            {% if product.image_4 %}
+            <div class="swiper-slide"><img src="{{product.image_4.url}}" alt="" srcset=""></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-container">
+        <h4>{{product.title|title}}</h4>
+    
+        <div class="product-tags">
+          <h5>Categories : </h5>
+          {% for category in product.categories.all %}
+          <a href="{% url 'cart:category-products' category %}" class="tags">{{category}}</a>
+          {% endfor %}
+        </div>
+        <div class="product-tags">
+          <h5>Tags : </h5>
+          {% for tag in product.tags.all %}
+          <a href="{% url 'cart:tag-products' tag %}" class="tags">{{tag}}</a>
+          {% endfor %}
+        </div>
+        <div class="product-tags">
+          <h5>Availability in stock : </h5>
+          {% if product.in_stock %}
+          <p class="in-stock">available *<span id="stock-count">{{product.stock}}</span></p>
+          {% else %}
+          <p class="not-stock">Not available</p>
+          {% endif %}
+        </div>
+        <div class="product-tags">
+          <h5>Amount: </h5>
+          {% if product.discount_price %}
+          <span class="dashed-price">&#8358;{{product.price|intcomma}}</span> <span>&#8358;{{product.discount_price|intcomma}}</span>
+          {% else %}
+          <span>&#8358;{{product.price|intcomma}}</span>
+          {% endif %}
+        </div>
+        {% if product.in_stock %}
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="incremental">
+            <button type="button" id="btnminus" onclick="btnMinus()">-</button>
+            {{form.quantity}}
+            <button type="button" id="btnplus" onclick="btnPlus()">+</button>
+          </div>
+        {% endif %}
+          {% for error in form.quantity.errors %}
+          <p class="errors">{{error}}</p>
+          {% endfor %}
+          <div class="form-div">
+            {{form.colour}}
+            {{form.size}}
+          </div>
+          <button type="submit">Add to Cart <img src="{% static '/img/icons/icons8-add-shopping-cart-30.png' %}" alt="" srcset=""></button>
+        </form>
+        {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %}
+          <p class="errors">{{error}}</p>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+<div class="inner-container desc">
+  <h4>
+    DESCRIPTION
+  </h4>
+  <P>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat aut laborum similique aliquid nulla quae, commodi cumque maxime ullam, necessitatibus eos qui est hic a mollitia eum, sed voluptatem. Culpa saepe explicabo consequuntur eaque voluptates molestiae repellat quos pariatur, quisquam voluptate quibusdam tempore in iure perferendis deserunt, mollitia accusamus ex nostrum fuga aspernatur a veniam? Eius repudiandae iusto vero voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. At doloremque accusamus necessitatibus facilis quibusdam nihil porro suscipit consequatur pariatur dolorem! Consequuntur dolorum blanditiis corporis illum laudantium inventore ipsum, laboriosam enim nam labore totam reprehenderit placeat velit molestias, alias qui fugiat magni assumenda. Ex quo nemo dignissimos odio sunt. Quos neque amet eligendi culpa dignissimos. Adipisci, inventore at blanditiis voluptatum delectus praesentium consequatur? Consectetur ullam, libero cum atque alias eius provident? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis porro molestiae fuga quidem nostrum saepe natus sapiente dolorem earum commodi ad blanditiis nemo animi unde quis repudiandae laboriosam iste enim, doloremque temporibus fugiat tempore. Recusandae vitae pariatur beatae soluta sapiente laboriosam dolores quia voluptatum quibusdam similique, inventore harum aspernatur nemo voluptates sit eveniet obcaecati molestias. Tempora inventore laboriosam cumque eaque non, in necessitatibus facilis temporibus maiores voluptatibus, expedita doloribus! Saepe cupiditate iure dignissimos consequuntur adipisci eum ex corporis molestias voluptates!
+  </P>
+ </div>
+<!-- similar products -->
+<div class="head-text">
+  <div class="flex-three">
+    <div class="lines"></div>
+    <h4>Similar products</h4>
+    <div class="lines"></div>
+  </div>
+  <p>Here are some similar products you may like</p>
+</div>
+<div class="inner-container">
+  <div class="grid-column-4">
+
+    {% for product in similar_products %}  
+    {% include 'cart/product-grids.html' %}
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+{% block js %}
+<script src="{% static '/js/add-to-cart.js' %}"></script> 
+{% endblock js %}

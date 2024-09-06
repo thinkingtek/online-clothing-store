@@ -1,0 +1,45 @@
+{% extends 'form_base.html' %}
+{% load static %}
+
+{% block form %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+      <h2>Login</h2>
+      <div class="form-input">
+          {{form.email.label_tag}}
+          {{form.email}}
+      </div>
+      <div class="form-input eyepass">
+          {{form.password.label_tag}}
+          {{form.password}}
+          
+          <img onclick="return showpassword();" class="eye" id="showpass"  src="{% static 'img/icons/invisible.png' %}" alt="" srcset="">
+          <img onclick="return showpassword();" class="eye" id="hidepass"  src="{% static 'img/icons/icons8-eye-30.png' %}" alt="" srcset="">
+          
+      </div>
+      <div class="remember-password">
+        {{form.remember_me}}
+        {{form.remember_me.label_tag}}
+      </div>
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="error-container">
+          <h5 class="">{{error}}</h5>
+        </div>
+        {% endfor %}
+      {% endif %}
+  <div class="form-input">
+  <input type="submit" value="Submit" />
+  </div>
+  </form> 
+  <div class="have-account">
+    <p>Do you need an account ?</p>
+    <a  href="{% url 'signin' %}">Signup</a>
+    <a class="home" href="{% url 'ecomm:home' %}" >Home</a>
+  </div>
+  <a class="link" href="{% url 'password-reset' %}" class="home">forgot password</a>
+  
+{% endblock form %}
+
+

@@ -1,0 +1,51 @@
+.checkout-form-order-summary {
+  display: grid;
+  grid-gap: 2rem; }
+  .checkout-form-order-summary .order-summary,
+  .checkout-form-order-summary .checkout-form {
+    padding: 1.8rem 1.4rem; }
+  .checkout-form-order-summary p {
+    font-size: 0.74rem;
+    padding: 0.3rem 0.5; }
+  .checkout-form-order-summary .checkout-form .form-div {
+    margin-bottom: 1rem; }
+    .checkout-form-order-summary .checkout-form .form-div .errors {
+      color: red;
+      font-size: 0.8rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  .checkout-form-order-summary .checkout-form .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 0.8rem; }
+  .checkout-form-order-summary .checkout-form input,
+  .checkout-form-order-summary .checkout-form select,
+  .checkout-form-order-summary .checkout-form button {
+    display: block;
+    width: 100%;
+    padding: 0.85rem 0.6rem;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid white;
+    font-size: 0.9rem;
+    transition: 0.2s ease-in; }
+    .checkout-form-order-summary .checkout-form input:hover,
+    .checkout-form-order-summary .checkout-form select:hover,
+    .checkout-form-order-summary .checkout-form button:hover {
+      border-bottom-color: lightseagreen; }
+  .checkout-form-order-summary .checkout-form input[type="checkbox"] {
+    display: inline;
+    width: auto;
+    cursor: pointer; }
+  .checkout-form-order-summary .checkout-form label {
+    cursor: pointer;
+    font-size: 0.93rem; }
+  .checkout-form-order-summary .checkout-form button {
+    background-color: lightseagreen;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0.6rem 0.6rem;
+    font-family: 'roboto-medium';
+    border: none; }

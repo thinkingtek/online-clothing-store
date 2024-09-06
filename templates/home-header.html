@@ -1,0 +1,19 @@
+{% load static %}
+{% load template_tags %}
+{% include 'nav.html' %}
+<header class="home-header no-overflow">
+  
+  <div class="showcase overlay-bg">
+    <div class="inside-showcase inner-container">
+      <div class="showcase-writeup">
+        <h3>Shop With Us</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis iusto ipsum impedit dolore aperiam dignissimos deserunt. Porro, nulla veritatis quidem ducimus voluptatum labore tempore deserunt doloribus voluptatem rerum praesentium.</p>
+        
+        <div class="showcase-link">
+          <a href="{% url "cart:product-list" %}">SHOP NOW</a>
+          <a href="">MEMBERSHIP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

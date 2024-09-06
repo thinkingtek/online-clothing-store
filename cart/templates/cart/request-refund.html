@@ -1,0 +1,44 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+<div class="inner-container">
+  
+  <div class="refund-container">
+    <form action="" method="POST"> 
+      {% csrf_token %}
+      <div class="form-input">
+        {{form.ref_code.label_tag}}
+        {{form.ref_code}}
+        {% if form.ref_code.errors %}
+
+        {% for error in form.ref_code.errors %}
+        <p class="errors">{{error}}</p>
+        {% endfor %}
+        
+        {% endif %}
+      </div>
+      <div class="form-input">
+        {{form.user.label_tag}}
+        {{form.user}}
+      </div>
+      <div class="form-input">
+        {{form.message.label_tag}}
+        {{form.message}}
+        <p class="help-text">{{form.message.help_text}}</p>
+      </div>
+      
+      <input type="submit" value="Send">
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+

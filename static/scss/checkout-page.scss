@@ -1,0 +1,76 @@
+@import "variables";
+
+.checkout-form-order-summary {
+    display: grid;
+    grid-gap: 2rem;
+  
+    .order-summary,
+    .checkout-form {
+  
+      padding: 1.8rem 1.4rem;
+    }
+  
+    p {
+      font-size: 0.74rem;
+      padding: 0.3rem 0.5;
+    }
+  
+    .checkout-form {
+  
+      .form-div {
+        margin-bottom: 1rem;
+  
+        .errors {
+          color: red;
+          font-size: 0.8rem;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+      }
+  
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 0.8rem;
+      }
+  
+      input,
+      select,
+      button {
+        display: block;
+        width: 100%;
+        padding: 0.85rem 0.6rem;
+        outline: none;
+        border: none;
+        border-bottom: 2px solid white;
+        font-size: 0.9rem;
+        transition: 0.2s ease-in;
+  
+        &:hover {
+          border-bottom-color: $pry-color;
+        }
+      }
+  
+      input[type="checkbox"] {
+        display: inline;
+        width: auto;
+        cursor: pointer;
+      }
+  
+      label {
+        cursor: pointer;
+        font-size: 0.93rem;
+      }
+  
+      button {
+        background-color: $pry-color;
+        color: white;
+        font-size: 1rem;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 0.6rem 0.6rem;
+        font-family: 'roboto-medium';
+        border: none;
+      }
+    }
+  }

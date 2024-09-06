@@ -1,0 +1,224 @@
+{% extends 'base.html' %} 
+{% load humanize %}
+{% load static %} 
+{% block header %} 
+  {% include 'header.html' %}
+{% endblock header %} 
+
+{% block modalContent %}
+<div class="modal-content delete-item-modal" id="delete-item-modal">
+  <p>Are you sure you want to delete ? </p>
+  <div class="btn-link">
+    <a href="" class="delete-link" id="cart-item-href">Delete</a>
+    <button type="button" class="pointer btn-x" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- Clear all cart items -->
+<div class="modal-content clear-content" id="clear-cart-modal">
+  <p>Are you sure you want to clear all cart items ? </p>
+  <div class="btn-link">
+    <a href="{% url 'cart:remove-all-items' %}" class="delete-link">CLEAR</a>
+    <button type="button" class="pointer btn-x" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+{% endblock modalContent %}
+
+
+{% block content %}
+
+<div class="inner-container">
+  {% include 'cart/progress.html' %}
+
+  {% if order.items.count > 1 %}
+  <h3 class="cart-count-items">Cart items ({{order.items.count}})</h3>
+  {% endif %}
+
+  <div class="cart-table">
+    <table cellspacing=0>
+      <thead>
+        <tr>
+           <th class="image-th">Image</th>
+           <th>Product</th>
+           <th>Price</th>
+           <th>Quantity</th>
+           <th>Total</th>
+           <th>Action</th>
+        </tr>
+     </thead>
+     <tbody>
+      {% for item in order.items.all %}
+      <tr>
+        <td class="image-tr">
+          <div class="p-image"><img src="{{item.product.image_1.url}}" alt="" class="item-image"></div>
+        </td>
+       <td>
+         <div class="product-details">
+            <div>
+               <a class="item-name" href="{% url 'cart:update-cart-item' item.pk %}">{{item.product.title|capfirst}}</a>
+               <p class="color-size">Colour: {{item.colour}}</p>
+               <p class="color-size">Size: {{item.size}}</p>
+            </div>
+         </div>
+      </td>
+      <td>
+        {% if item.ordered_item_discount_price %}
+           &#8358;{{item.ordered_item_discount_price|intcomma}}
+        {% else %}
+           &#8358;{{item.ordered_item_price|intcomma}}
+        {% endif %}
+        </td>
+        <td>
+          <p class="item-quantity">{{item.quantity}}</p>
+       </td>
+       <td>
+        {% if item.ordered_item_discount_price %}
+           <p>&#8358;{{item.ordered_item_subtotal|intcomma}}</p>
+            <p class="saving">saved &#8358;{{item.get_amount_saved|intcomma}}</p>
+        {% else %}
+           <p>&#8358;{{item.ordered_item_subtotal|intcomma}}</p>
+        {% endif %}
+        </td>
+        <td>
+          <button type="button" class="pointer remove" data-name="{% url 'cart:cart-remove' item.pk %}" onclick="showDeleteModal(event)">
+            <img src="{% static '/img/icons/icons8-close-window-30.png' %}" alt="" srcset="" data-name="{% url 'cart:cart-remove' item.pk %}">
+          </button>
+       </td>
+      </tr>
+      {% empty %}
+       <tr class="empty-tr">
+           <td colspan="6">
+             There's nothing in your Cart. 
+             <a class="empty-cart" href="{% url 'cart:product-list' %}">Continue shopping
+             </a>
+           </td>
+       </tr>
+       {% endfor %}
+     </tbody>
+    </table>
+    <div class="continue-clear-cart">
+      <a class="continue-shopping" href="{% url 'cart:product-list' %}">CONTINUE SHOPPING</a>
+      {% if order.items.count > 1 %}
+      <button type="button" class="pointer clear-cart" onclick="showClearModal()">CLEAR CART</button>
+      {% endif %}
+   </div>
+
+  </div>
+
+  <!-- Mobile view table -->
+  <section class="mobile-view-cart">
+    {% for item in order.items.all %}
+    <div class="mobile-cart-container">
+      <div class="cart-item-div">
+        <div class="item-img-details">
+          <img src="{{item.product.image_1.url}}" alt="cart item image" srcset="">
+          <div class="item-details">
+            <a href="">{{item.order_item_name|capfirst}}</a>
+            <p>Colour: {{item.colour}}</p>
+            <p>Size: {{item.size}}</p>
+          </div>
+        </div>
+
+        <div class="price-quantity">
+          <p>&#8358;{{item.get_item_price|intcomma}}</p>
+          <p class="item-q"> X {{item.quantity}}</p>
+          {% if item.ordered_item_discount_price > 0.00 %}
+          <p class="saving">saved &#8358;{{item.get_amount_saved|intcomma}}</p>
+          {% endif %}
+          <p>&#8358;{{item.ordered_item_subtotal|intcomma}}</p>
+        </div>
+      </div>
+
+      <div class="links-btn">
+        <a href="" class="d-block link">view</a>
+        <button type="button" class="pointer d-block btn-delete" data-name="{% url 'cart:cart-remove' item.pk %}" onclick="showDeleteModal(event)">
+          delete
+        </button>
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty-cart-div">
+      There's nothing in your Cart. <a class="empty-cart" href="{% url 'cart:product-list' %}">Continue shopping
+             </a>
+    </div>
+    {% endfor %}
+    <div class="clear-shopping">
+      <a href="{% url 'cart:product-list' %}" class="shopping">CONTINUE SHOPPING</a>
+      {% if order.items.count > 1 %}
+      <button type="button" class="pointer" onclick="showClearModal()">CLEAR</button>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- coupon and cart total -->
+  {% if order.items.all.count > 0 %}
+  <div class="coupon-cart-total">
+    
+   <div class="padding-grid coupon">
+     <h4>Promo code</h4>
+      <div class="coupon-code">
+        <input type="text" name="" id="" />
+        <input type="submit" value="APPLY" />
+      </div>
+       <p>
+         Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
+         ipsum dolore eius, repudiandae ratione provident perspiciatis in
+       </p>
+
+       <h4>Shipping Methods</h4>
+       {% for shipping in shipping_methods %}
+       <div class="flex-shipping">
+       
+        <div class="shipping-icon-name">{{shipping.name}}</div>
+        {% if shipping.price < 1 %}
+        <h5>Free</h5>
+        {% else %}
+        <h5>&#8358;{{shipping.price|intcomma}}</h5>
+        {% endif %}
+
+      </div>
+       {% endfor %}
+
+    </div>
+
+    <div class="padding-grid cart">
+      <h4>Cart Total</h4>
+      <div class="flex-cart">
+        <h5>Subtotal</h5>
+        <h5 class="black-text">&#8358;<span id="cart-subtotal">{{order.get_subtotal|intcomma}}</span></h5>
+      </div>
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="select-shipping">
+          {{form.shipping_method}}
+        </div>
+        <div class="flex-cart total">
+          <h5>Total</h5>
+          <h5 id="overall-total">&#8358;{{order.get_overall_total|intcomma}}</h5>
+        </div>
+        {% if order.items.count > 0 %}
+        {% if user.is_authenticated %}
+        <input type="submit" value="PROCEED TO CHECKOUT">
+        {% else %}
+        <input type="submit" value="LOGIN TO CHECKOUT">
+        {% endif %}
+        {% endif %}
+      </form>
+    </div>
+  </div>
+  {% endif %}
+ 
+</div>
+
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+
+
+{% block js %}
+<script src="{% static '/js/cart-list.js' %}"></script>
+{% endblock js %}

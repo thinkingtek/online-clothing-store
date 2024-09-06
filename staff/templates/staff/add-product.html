@@ -1,0 +1,113 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+<div class="inner-container">
+ 
+  <div>
+    <a href="{% url 'staff:products' %}" class="link active"> &laquo; Prodcuts</a>
+    <h4 class="table-header">{{view_name}}</h4>
+    <div class="addproductform-container">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+      <div class="form-input grid-four">
+        <div>{{form.image_1.label_tag}}{{form.image_1}}</div>
+        <div>{{form.image_2.label_tag}}{{form.image_2}}</div>
+        <div>{{form.image_3.label_tag}}{{form.image_3}}</div>
+        <div>{{form.image_4.label_tag}}{{form.image_4}}</div>
+      </div>
+      <div class="form-input grid-two">
+        <div>
+          {{form.title.label_tag}}
+          {{form.title}}
+          {%  for error in form.title.errors %}
+          <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+        <div>
+          {{form.slug.label_tag}}
+          {{form.slug}}
+          {%  for error in form.slug.errors %}
+          <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+      </div>
+      <div class="form-input grid-two-checkbox">
+        <div>
+          {{form.categories.label_tag}}
+          {{form.categories|capfirst}}
+          <p class="errors error-category">You can only select two categories for a product</p>
+          {%  for error in form.categories.errors %}
+          <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+        <div>
+          {{form.tags.label_tag}}
+          {{form.tags|capfirst}}
+          <p class="errors error-tag">You can only select two tags for a product</p>
+          {%  for error in form.tags.errors %}
+          <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+      </div>
+
+      <div class="form-input grid-two-checkbox">
+        <div>
+          {{form.available_colours.label_tag}}
+          {{form.available_colours|capfirst}}
+          <p class="errors error-category">You can only select two categories for a product</p>
+          {%  for error in form.available_colours.errors %}
+          <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+        <div>
+          {{form.available_size.label_tag}}
+          {{form.available_size|capfirst}}
+          <p class="errors error-tag">You can only select three tags for a product</p>
+          {%  for error in form.available_size.errors %}
+          <p class="errors">{{error}}</p>
+          {%  endfor  %}
+        </div>
+      </div>
+      <div class="form-input grid-three">
+        <div>
+          {{form.stock.label_tag}}
+          {{form.stock}}
+        </div>
+        <div>
+          {{form.price.label_tag}}
+          {{form.price}}
+        </div>
+        <div>
+          {{form.discount_price.label_tag}}
+          {{form.discount_price}}
+        </div>
+      </div>
+      <div class="form-input single">
+        {{form.description.label_tag}}
+        {{form.description}}
+      </div>
+      <button type="submit"> {{view_name}}</button>
+    </form>
+    </div> 
+    {% for errors in form.errors %}
+    <p>{{error}}</p>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+{% block js %}
+<script src="{% static '/js/slugify.js' %}"></script>
+{% endblock js %}

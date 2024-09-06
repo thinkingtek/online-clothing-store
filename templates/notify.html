@@ -1,0 +1,9 @@
+{% for message in messages %}
+<div
+  class="inner-container message-alert alert-{{message.tags}} alert"
+  id="alert-remove"
+>
+  <div class="toggle-btn alert-{{message.tags}}" onclick="removeAlert()">X</div>
+  <div class="message">{{message}}</div>
+</div>
+{% endfor %}

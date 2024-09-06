@@ -1,0 +1,78 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load humanize %}
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+
+<div class="inner-container">
+  <div class="username-email">
+    <h3>{{username}} </h3>
+    <h5>{{email}} </h5>
+  </div>
+  <div>
+    <h4 class="table-header">Ref....{{order.reference_number}} | {{order.user.full_name}}</h4>
+    <div class="cart-table">
+      <table cellspacing=0>
+        <thead>
+          <tr>
+             <th>ITEMS</th>
+             <th>PRICE</th>
+             <th>QUANTITY</th>
+             <th>SIZE</th>
+             <th>COLOR</th>
+             <th>SUBTOTAL</th>
+          </tr>
+       </thead>
+       <tbody>
+        {% for item in order.items.all %}
+        <tr>
+         <td>
+           <P>{{item.product.title|capfirst}}</P>
+        </td>
+        <td>
+          <p class="">&#8358;{{item.get_item_price|intcomma}}</p>
+        </td>
+        <td>
+          <p class="item-quantity">{{item.quantity}}</p>
+        </td>
+        <td>
+          <P>{{item.size}}</P>
+        </td>
+        <td>
+          <p class="">{{item.colour}}</p>
+        </td>
+        <td>
+          <p>&#8358;{{item.ordered_item_subtotal|intcomma}}</p>
+        </td>     
+        </tr>
+        {% empty %}
+         <tr class="empty-tr">
+             <td colspan="6">
+               Your Order is empty go to your Cart and place Order. 
+               <a class="empty-cart" href="{% url 'cart:cart-items' %}">Continue shopping
+               </a>
+             </td>
+         </tr>
+         {% endfor %}
+       </tbody>
+      </table>
+      <div class="continue-clear-cart">
+        <a class="continue-shopping" href="{% url 'staff:orders' %}"> < ORDERS</a>
+        <a class="continue-shopping" href="{% url 'cart:cart-items' %}">PLACE ORDER</a>
+     </div>
+  
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{%endblock footer %}

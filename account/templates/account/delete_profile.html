@@ -1,0 +1,19 @@
+{% extends 'form_base.html' %}
+
+{% block form %}
+
+<h2>Delete Account</h2>
+    <div class="form-group">
+        <p>Are you sure you want to delete your account {{request.user}} ?</p>
+    </div>
+    <form action="{% url 'delete-account' %}" method="POST" class="form-group delete">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+  <div class="have-account">
+    <a  href="{% url 'login' %}">Login</a>
+    <a  href="{% url 'signin' %}">Signup</a>
+    <a class="home" href="{% url 'blog-home' %}" >Home</a>
+  </div>
+{% endblock form %}
+

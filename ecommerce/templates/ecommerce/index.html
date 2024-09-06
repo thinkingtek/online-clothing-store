@@ -1,0 +1,190 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block header %} 
+{% include 'home-header.html' %}
+{% endblock header %} 
+
+{% block content %} 
+  <div class="head-text">
+    <h4>What we deal on</h4>
+  </div>
+  {% if messages %}
+    {% include 'notify.html' %}
+  {% endif %}
+  <div class="inner-container category-columns">
+      <div class="grids male-category">
+        <a href="http://">Male</a>
+      </div>
+      <div class="grids female-category">
+        <a href="http://">Female</a>
+      </div>
+      <div class="grids kids-category">
+        <a href="http://">Kids</a>
+      </div>
+  </div>
+
+  <div class="head-text">
+    <div class="flex-three">
+      <div class="lines"></div>
+      <h4>New Arrivals</h4>
+      <div class="lines"></div>
+    </div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quaerat nemo dolore itaque, dolor possimus atque accusantium omnis cum, facilis repellat? Neque consectetur ullam qui quae possimus. </p>
+  </div>
+
+  <!-- new arrivals products -->
+  <div class="inner-container">
+    <div class="grid-column-4">
+      {% for product in recent_products %}
+      {% include 'cart/product-grids.html' %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div class="banner overlay-bg no-overflow">
+    <div class="banner-inner">
+
+    </div>
+  </div>
+
+  <!-- Our products -->
+  <div class="head-text">
+    <div class="flex-three">
+      <div class="lines"></div>
+      <h4>Our products</h4>
+      <div class="lines"></div>
+    </div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quaerat nemo dolore itaque, dolor possimus atque accusantium omnis cum, facilis repellat? Neque consectetur ullam qui quae possimus. </p>
+  </div>
+
+  <div class="inner-container">
+    <div class="grid-column-4">
+      {% for product in products %}
+        {% include 'cart/product-grids.html' %}
+      {% endfor %}
+    </div>
+    <div class="head-text">
+      <a href="{% url 'cart:product-list' %}">More products</a>
+    </div>
+  </div>
+
+
+<!-- Most rated -->
+<div class="head-text">
+  <div class="flex-three">
+    <div class="lines"></div>
+    <h4>Most rated</h4>
+    <div class="lines"></div>
+  </div>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quaerat nemo dolore itaque, dolor possimus atque accusantium omnis cum, facilis repellat? Neque consectetur ullam qui quae possimus. </p>
+</div>
+
+<div class="inner-container">
+  <div class="grid-column-4">
+
+    {% for product in most_rated %}
+    {% include 'cart/product-grids.html' %}
+    {% endfor %}
+  </div>
+</div>
+
+  <!-- services -->
+  <div class="inner-container services">
+    <div class="service">
+      <img src="{% static '/img/icons/free-shipping-30.png' %}" alt="" srcset="">
+      <div>
+        <h5>FREE SHIPPING</h5>
+        <P>Ship to all over</P>
+      </div>
+    </div>
+    <div class="service delivery">
+      <img src="{% static '/img/icons/last-24-hours-50.png' %}" alt="" srcset="">
+      <div>
+        <h5>DELIVERY ON TIME</h5>
+        <P>We work with time</P>
+      </div>
+    </div>
+    <div class="service">
+      <img src="{% static '/img/icons/customer-support-30.png' %}" alt="" srcset="">
+      <div>
+        <h5>ONLINE SUPPORT 24/7</h5>
+        <P>Dedicated support</P>
+      </div>
+    </div>
+    <div class="service payment">
+      <img src="{% static '/img/icons/card-security-30.png' %}" alt="" srcset="">
+      <div>
+        <h5>SECURE PAYMENT</h5>
+        <P>100% secure payment</P>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pix showcase -->
+  <div class="insta-follow">
+    <div class="head-text">
+      <div class="flex-three">
+        <h4>Instagram follow</h4>
+      </div>
+    </div>
+    <div class="pix-showcase">
+
+      <div class="pix">
+        <div class="follow-link">
+          <img src="{% static '/img/icons/logo-instagram-png-2452.png' %}" alt="" srcset="">
+          <a href="">steph_la_cute</a>
+        </div>
+        <img src="{% static '/img/follow_imgs/steph_la_cute-red.jpg' %}" alt="" srcset="" class="logo">
+      </div>
+
+      <div class="pix">
+        <div class="follow-link">
+          <img src="{% static '/img/icons/logo-instagram-png-2452.png' %}" alt="" srcset="">
+          <a href="">Nike</a>
+        </div>
+        <img src="{% static '/img/follow_imgs/nike-sneaker-red-carton.jpg' %}" alt="" srcset="" class="logo">
+      </div>
+
+      <div class="pix">
+        <div class="follow-link">
+          <img src="{% static '/img/icons/logo-instagram-png-2452.png' %}" alt="" srcset="">
+          <a href="">mancho</a>
+        </div>
+        <img src="{% static '/img/follow_imgs/men-zebra-native.jpg' %}" alt="" srcset="" class="logo">
+      </div>
+
+      <div class="pix">
+        <div class="follow-link">
+          <img src="{% static '/img/icons/logo-instagram-png-2452.png' %}" alt="" srcset="">
+          <a href="">steph_la_cute</a>
+        </div>
+        <img src="{% static '/img/follow_imgs/steph_la_cute-black-skirt.jpg' %}" alt="" srcset="" class="logo">
+      </div>
+
+      <div class="pix">
+        <div class="follow-link">
+          <img src="{% static '/img/icons/logo-instagram-png-2452.png' %}" alt="" srcset="">
+          <a href="">suit_realtor</a>
+        </div>
+        <img src="{% static '/img/follow_imgs/men_suits_style.jpg' %}" alt="" srcset="" class="logo">
+      </div>
+
+      <div class="pix">
+        <div class="follow-link">
+          <img src="{% static '/img/icons/logo-instagram-png-2452.png' %}" alt="" srcset="">
+          <a href="">henry_taylorz</a>
+        </div>
+        <img src="{% static '/img/follow_imgs/mens_native_wear.jpg' %}" alt="" srcset="" class="logo">
+      </div>
+      
+
+    </div>
+  </div>
+{% endblock content %} 
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+<!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa sapiente repellendus itaque eveniet possimus unde facere nesciunt rem temporibus officiis, mollitia dolorum excepturi quas repellat dolore quam vero nobis cumque! Dolorem aspernatur molestias incidunt aliquid dicta blanditiis ratione esse soluta voluptates quam reiciendis dignissimos itaque adipisci eos, molestiae inventore? Laudantium. -->

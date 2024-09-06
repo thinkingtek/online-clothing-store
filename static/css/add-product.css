@@ -1,0 +1,76 @@
+/* Add product form */
+.addproductform-container {
+  margin-top: 0.2rem; }
+  .addproductform-container .form-input {
+    margin-bottom: 0.9rem;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid rgba(51, 51, 51, 0.4);
+    border-radius: 5px; }
+    .addproductform-container .form-input .errors {
+      font-size: 0.9rem;
+      color: red; }
+    .addproductform-container .form-input .error-category,
+    .addproductform-container .form-input .error-tag {
+      display: none; }
+  .addproductform-container .grid-two {
+    transition: 0.4s;
+    display: grid;
+    grid-gap: 1rem; }
+  .addproductform-container .grid-two label,
+  .addproductform-container .grid-three label,
+  .addproductform-container .single label {
+    display: inline-block;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem; }
+  .addproductform-container .grid-two input,
+  .addproductform-container .grid-three input,
+  .addproductform-container .single textarea {
+    display: block;
+    width: 100%;
+    padding: 0.4rem 0.4rem;
+    border-radius: 3px;
+    border: none;
+    border: 1px solid rgba(51, 51, 51, 0.8); }
+  .addproductform-container .grid-three {
+    transition: 0.4s;
+    display: grid;
+    grid-gap: 0.8rem; }
+  .addproductform-container .grid-four div {
+    display: inline-block;
+    margin-bottom: 0.5rem; }
+    .addproductform-container .grid-four div label {
+      font-size: 0.94rem; }
+  .addproductform-container .grid-two-checkbox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 0.5rem; }
+    .addproductform-container .grid-two-checkbox ul li {
+      display: inline-block;
+      margin-right: 0.4rem;
+      text-align: center; }
+      .addproductform-container .grid-two-checkbox ul li label {
+        cursor: pointer;
+        display: flex;
+        align-items: center; }
+        .addproductform-container .grid-two-checkbox ul li label input {
+          margin-right: 0.15rem; }
+    .addproductform-container .grid-two-checkbox label, .addproductform-container .grid-two-checkbox input[type="checkbox"] {
+      cursor: pointer; }
+  .addproductform-container button {
+    display: block;
+    padding: 0.8rem;
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+    font-family: "roboto-medium";
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: lightseagreen;
+    color: white;
+    transition: 0.15s ease-in; }
+    .addproductform-container button:hover {
+      background-color: #23ca98; }
+  .addproductform-container #id_available_colours div:first-of-type,
+  .addproductform-container #id_available_size div:first-of-type {
+    display: none; }

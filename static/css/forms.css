@@ -1,0 +1,154 @@
+body {
+  margin-top: 0;
+  background-color: #f3f3f3; }
+
+main {
+  background: url("/static/img/background/suit-tie.jpg") no-repeat center center/cover;
+  padding: 1.3rem;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden; }
+
+.form-container {
+  z-index: 2;
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0.8rem 1.3rem;
+  border-radius: 7px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); }
+  .form-container .error-container {
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 0.38rem;
+    margin-top: 0.3rem; }
+    .form-container .error-container h5 {
+      color: red;
+      font-weight: lighter;
+      font-size: 0.84rem;
+      text-align: justify; }
+  .form-container h2 {
+    text-align: center;
+    font-family: "roboto-light";
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    color: #2c234d; }
+  .form-container .error {
+    font-size: 0.84rem;
+    color: red; }
+  .form-container .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem; }
+  .form-container ul {
+    list-style: none; }
+    .form-container ul li {
+      font-size: 0.8rem;
+      line-height: 1.05rem; }
+  .form-container .form-input {
+    margin-bottom: 0.4rem; }
+    .form-container .form-input .delete {
+      background-color: red; }
+    .form-container .form-input label {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-family: "roboto-regular";
+      padding-bottom: 0.05rem;
+      cursor: pointer;
+      color: #302f2f;
+      letter-spacing: 0.03rem; }
+    .form-container .form-input .help-text {
+      line-height: 1.05rem;
+      font-size: 0.8rem;
+      color: #575757; }
+    .form-container .form-input input {
+      display: block;
+      width: 100%;
+      padding: 0.46rem 0.5rem;
+      border-radius: 5px;
+      border: 2px solid #efebeb;
+      outline: none;
+      color: #777777;
+      font-weight: bold; }
+    .form-container .form-input input[type="submit"] {
+      cursor: pointer;
+      color: white;
+      margin-top: 0.2rem;
+      padding: 0.4rem 0.5rem;
+      border: none;
+      text-align: center;
+      font-family: "roboto-light";
+      letter-spacing: 0.08rem;
+      font-size: 0.9rem;
+      background-color: #1a73e8; }
+      .form-container .form-input input[type="submit"]:hover {
+        background-color: #1c5aaa; }
+  .form-container .eyepass {
+    position: relative; }
+    .form-container .eyepass .eye {
+      position: absolute;
+      right: 0.5rem;
+      top: 1.8rem;
+      width: 0.81rem;
+      cursor: pointer; }
+    .form-container .eyepass .eye-close {
+      display: none;
+      background: transparent; }
+    .form-container .eyepass #hidepass {
+      visibility: hidden; }
+    .form-container .eyepass #showpass {
+      visibility: visible; }
+    .form-container .eyepass .show {
+      visibility: visible; }
+    .form-container .eyepass .hide {
+      visibility: hidden; }
+  .form-container .remember-password {
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center; }
+    .form-container .remember-password label {
+      font-size: 0.94rem;
+      color: #525252;
+      margin-left: 0.3rem;
+      cursor: pointer; }
+    .form-container .remember-password input {
+      cursor: pointer; }
+  .form-container .have-account {
+    display: flex;
+    align-items: center; }
+    .form-container .have-account p {
+      margin-right: 0.3rem;
+      font-size: 0.9rem; }
+    .form-container .have-account a {
+      display: inline-block;
+      background-color: #1c5aaa;
+      text-decoration: none;
+      color: white;
+      font-size: 0.86rem;
+      padding: 0.35rem;
+      font-weight: 505;
+      margin-right: 0.3rem;
+      border-radius: 3px;
+      border: 1.5px solid #1a73e8;
+      transition: 0.3s ease-out; }
+      .form-container .have-account a:hover {
+        background-color: transparent;
+        color: black; }
+      .form-container .have-account a:last-child {
+        margin: 0; }
+    .form-container .have-account a.home {
+      background-color: transparent;
+      border-color: #1a73e8;
+      color: #1a73e8; }
+      .form-container .have-account a.home:hover {
+        background-color: #1a73e8;
+        color: white; }
+  .form-container .forgot-password {
+    color: #1a73e8; }
+    .form-container .forgot-password:hover {
+      color: #343a40; }

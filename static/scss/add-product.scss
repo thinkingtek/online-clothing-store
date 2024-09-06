@@ -1,0 +1,111 @@
+@import "variables";
+
+/* Add product form */
+.addproductform-container {
+  margin-top: 0.2rem;
+
+  .form-input {
+    margin-bottom: 0.9rem;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid rgba(51, 51, 51, 0.4);
+    border-radius: 5px;
+
+    .errors {
+      font-size: 0.9rem;
+      color: red;
+    }
+
+    .error-category,
+    .error-tag {
+      display: none;
+    }
+  }
+  
+  .grid-two {
+    transition: 0.4s;
+    display: grid;
+    grid-gap: 1rem;
+  }
+
+  .grid-two label,
+  .grid-three label,
+  .single label {
+    display: inline-block;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+  }
+
+  .grid-two input,
+  .grid-three input,
+  .single textarea {
+    display: block;
+    width: 100%;
+    padding: 0.4rem 0.4rem;
+    border-radius: 3px;
+    border: none;
+    border: 1px solid rgba(51, 51, 51, 0.8);
+  }
+
+  .grid-three {
+    transition: 0.4s;
+    display: grid;
+    grid-gap: 0.8rem;
+  }
+
+  .grid-four div {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+
+    label {
+      font-size: 0.94rem;
+    }
+  }
+
+  .grid-two-checkbox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 0.5rem;
+
+    ul li {
+      display: inline-block;
+      margin-right: 0.4rem;
+      text-align: center;
+
+      label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        input {
+          margin-right: 0.15rem;
+        }
+      }
+    }
+    label,input[type="checkbox"]{
+      cursor: pointer;
+    }
+  }
+
+  button {
+    display: block;
+    padding: 0.8rem;
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+    font-family: "roboto-medium";
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: $pry-color;
+    color: white;
+    transition: 0.15s ease-in;
+
+    &:hover {
+      background-color: $dark-green
+    }
+  }
+  #id_available_colours div:first-of-type,
+  #id_available_size div:first-of-type{
+    display: none;
+  }
+}

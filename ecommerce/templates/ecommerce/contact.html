@@ -1,0 +1,58 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+<div class="inner-container contact-form">
+  <h3>Contact information</h3>
+  <div class="contact-info">
+
+    <div>
+      <img src="{% static '/img/icons/place-marker-30.png' %}" alt="" srcset="">
+      <a href="http://">Wuse Zone 4 Plaza</a>
+    </div>
+
+    <div>
+      <img src="{% static '/img/icons/phone-30.png' %}" alt="" srcset="">
+      <a href="tel://1234567920">+2347018739335</a>
+    </div>
+
+    <div>
+      <img src="{% static '/img/icons/send-email-30.png' %}" alt="" srcset="">
+      <a href="tel://1234567920">+2347018739335</a>
+    </div>
+
+    <div>
+      <img src="{% static '/img/icons/globe-earth-30.png' %}" alt="" srcset="">
+      <a href="{% url 'ecomm:home' %}">Ebisco fashionz</a>
+    </div>
+  </div>
+
+  <div class="contact-form-container">
+    <h4>Get in touch</h4>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="form-div">
+        {{form.first_name}}
+        {{form.last_name}}
+      </div>
+      <div class="form-div">
+        {{form.email}}
+        {{form.subject}}
+      </div>
+      <div class="form-textarea">
+        {{form.message}}
+      </div>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{%endblock footer %}

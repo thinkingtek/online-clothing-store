@@ -1,0 +1,15 @@
+{% extends 'form_base.html' %}
+
+{% block form %}
+
+<h2>Activation invalid</h2>
+    <div class="form-group">
+        <p>Activation unsuccessful</p>
+</div>
+  <div class="have-account">
+    <a  href="{% url 'signin' %}">Signup</a>
+    <a class="home" href="{% url 'blog-home' %}" >Home</a>
+  </div>
+{% endblock form %}
+
+

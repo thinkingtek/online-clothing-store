@@ -1,0 +1,89 @@
+{% extends 'base.html' %} 
+{% load humanize %}
+{% load static %} 
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+
+<div class="inner-container">
+  <div class="search-page-container">
+    {% if search %}
+    <h4>Found results  ({{products.count}})</h4>
+    {% else %}
+    <h4>Search for products </h4>
+    {% endif %}
+    <form action="{% url 'ecomm:search-items' %}" method="get" class="search-products">
+      <div class="form-input">
+        {{search_form.search}}
+      </div>
+      <button type="submit" >Search</button>
+    </form>
+
+    <div class="grid-column-4">
+
+      {% for product in products %}
+      {% include 'cart/product-grids.html' %}
+      {% empty %}
+      <h5>No search results</h5>
+      {% endfor %}
+    </div>
+  </div>
+
+
+  {% if is_paginated %}
+  <div class="paginators">
+    {% if page_obj.has_previous %}
+      <a href="?search={{search}}&page=1">First</a>
+      <a  href="?search={{search}}&page={{page_obj.previous_page_number}}">&laquo;</a> 
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <a class="current-page" href="?search={{search}}&page={{num}}">{{num}}</a>
+
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a href="?search={{search}}&page={{num}}">{{num}}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a href="?search={{search}}&page={{page_obj.next_page_number}}">&raquo;</a>
+      <a class="last-page" href="?search={{search}}&page={{page_obj.paginator.num_pages}}">Last</a> 
+    {% endif %}
+  </div>
+  {% endif %}
+  
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+  {% comment %} pagination for function view
+  <div class="paginators">
+    {% if products.has_previous %}
+      <a href="?search={{search}}&page=1">First</a>
+      <a  href="?search={{search}}&page={{page_obj.previous_page_number}}">Prev</a> 
+    {% endif %}
+
+    {% for num in products.paginator.page_range %}
+      {% if products.number == num %}
+      <a class="current-page" href="?search={{search}}&page={{num}}">{{num}}</a>
+
+      {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+      <a href="?search={{search}}&page={{num}}">{{num}}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if products.has_next %}
+      <a href="?search={{search}}&page={{products.next_page_number}}">Next</a>
+      <a class="last-page" href="?search={{search}}&page={{products.paginator.num_pages}}">Last</a> 
+    {% endif %}
+
+  </div> 
+  {% endcomment %}

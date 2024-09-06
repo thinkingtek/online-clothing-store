@@ -1,0 +1,162 @@
+{% extends 'base.html' %} 
+{% load humanize %}
+{% load static %} 
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+
+<div class="inner-container">
+  <div class="username-email">
+    <h3>{{username}} </h3>
+    <h5>{{email}} </h5>
+  </div>
+  <div>
+    <h4 class="table-header">ORDERS</h4>
+    <div class="cart-table">
+      <table cellspacing=0>
+        <thead>
+          <tr>
+             <th>Ref No.</th>
+             <th>CUSTOMER</th>
+             <th>DATE</th>
+             <th>AMOUNT</th>
+             <th>SHIPPING FEE</th>
+             <th>TOTAL AMOUNT</th>
+             <th>PAYMENT STATUS</th>
+             <th>ORDER STATUS</th>
+          </tr>
+       </thead>
+       <tbody>
+        {% for order in orders %}
+        <tr>
+         <td>
+           <a href="{% url 'staff:order-details' order.pk %}">{{order.ref_code}}</a>
+        </td>
+        <td>
+          <p>{{order.user.full_name}}</p>
+        </td>
+        <td>
+          <p>{{order.ordered_date|timesince}}</p>
+        </td>
+        <td>
+          <p class="">&#8358;{{order.ordered_subtotal|intcomma}}</p>
+         </td>
+         <td>
+           {% if order.ordered_shipping_fee == 0 %}
+           <p class="">FREE</p>
+           {% else %}
+           <p class="">&#8358;{{order.ordered_shipping_fee|intcomma}}</p>
+           {% endif %}
+          </td>
+          <td>
+           <p class="">&#8358;{{order.ordered_overall_total|intcomma}}</p>
+          </td>
+          <td>
+            {% if order.ordered %}
+            <p class="">Paid</p>
+            {% else %}
+            <p class="">Not Paid</p>
+            {% endif %}
+           </td>
+           <td>
+            <p class="">{{order.status}}</p>
+           </td>
+        </tr>
+        {% empty %}
+         <tr class="empty-tr">
+             <td colspan="8">
+               There are no Orders. 
+               <a class="empty-cart" href="{% url 'cart:cart-items' %}">Place an Order for a customer
+               </a>
+             </td>
+         </tr>
+         {% endfor %}
+       </tbody>
+      </table>
+      <div class="continue-clear-cart">
+        <a class="continue-shopping" href="{{request.META.HTTP_REFERER|default:'/'}}"> &laquo; BACK</a>
+     </div>
+    </div>
+
+    <!-- Mobile view table -->
+  <section class="mobile-view-cart">
+    {% for order in orders %}
+    <div class="mobile-cart-container">
+      <ul class="orders">
+        <li>
+          <span class="order-title">Ref: </span><a href="{% url 'cart:order-details' order.pk %}">{{order.ref_code}}</a>
+        </li>
+        <li>
+          <p><span class="order-title">Time: </span>{{order.ordered_date|timesince}} ago</p>
+        </li>
+        <li>
+          <p><span class="order-title">Amount: </span>&#8358;{{order.ordered_subtotal|intcomma}}</p>
+        </li>
+        <li>
+          <p><span class="order-title">Shipping fee: </span>
+            {% if order.ordered_shipping_fee < 1 %}
+            FREE
+            {% else %}
+            &#8358;{{order.ordered_shipping_fee|intcomma}}</p>
+            {% endif %}
+        </li>
+        <li>
+          <p><span class="order-title">Total: </span>&#8358;{{order.ordered_overall_total|intcomma}}</p>
+        </li>
+        <li>
+          <p><span class="order-title">Status: </span>{{order.status}}</p>
+        </li>
+      </ul>
+
+      <div class="links-btn">
+        <a href="" class="d-block link">view</a>
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty-cart-div">
+      You have not made any order, place an order. <a class="empty-cart" href="{% url 'cart:product-list' %}">Continue shopping
+             </a>
+    </div>
+    {% endfor %}
+    <div class="clear-shopping">
+      <a href="{{request.META.HTTP_REFERER|default:'/'}}" class="shopping">&laquo; Back</a>
+    </div>
+  </section>
+
+
+    {% if is_paginated %}
+    <div class="paginators">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a  href="?page={{page_obj.previous_page_number}}">Prev</a> 
+      {% endif %}
+  
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="current-page" href="?page={{num}}">{{num}}</a>
+  
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{num}}">{{num}}</a>
+        {% endif %}
+      {% endfor %}
+  
+      {% if page_obj.has_next %}
+        <a href="?page={{page_obj.next_page_number}}">Next</a>
+        <a class="last-page" href="?page={{page_obj.paginator.num_pages}}">Last</a> 
+      {% endif %}
+  
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}

@@ -1,0 +1,27 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/resets-classes.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/forms.css' %}" />
+    {% if title %}
+      <title>{{title}}</title>
+    {% else %}
+    <title>Blog Webapp</title>
+    {% endif %}
+</head>
+<body>
+    <main class="overlay-bg">
+        <div class="form-container">
+            {% if messages %}
+            {% include 'notify.html' %}
+            {% endif %}
+            {% block form %}  {% endblock form %}
+        </div>
+    </main>
+    <script src="{% static '/js/forms.js' %}"></script>
+</body>
+</html>

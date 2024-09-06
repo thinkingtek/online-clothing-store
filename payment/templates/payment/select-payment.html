@@ -1,0 +1,126 @@
+{% extends 'base.html' %} 
+{% load humanize %}
+{% load static %}
+
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+<div class="inner-container payment-select">
+
+  <div class="payment-container">
+    {% include 'notify.html' %}
+
+    <div class="inner-container message-alert alert-success alert">
+      <div class="toggle-btn alert-success">X</div>
+      <div class="message">
+        Your payment was made successfully
+      </div>
+    </div>
+
+    <div class="message-alert alert-danger alert">
+      <div class="toggle-btn alert-danger">X</div>
+      <div class="message">
+        Your payment was made successfully
+      </div>
+    </div>
+ 
+    <h4>SELECT PAYMENT OF YOUR CHOICE</h4>
+    <p>Order Total: &#8358;{{order.ordered_overall_total|intcomma}}</p>
+
+    <div class="loader d-none"></div>
+
+    <div class="btn-container">
+      <button type="button" onclick="payStackPayment()" class="pointer pay-method paystack">pay with Paystack (credit or debit card) <img src="{% static 'img/icons/icons8-debit-card-white-50.png' %}" alt="" srcset=""></button>
+
+      <button type="button" onclick="" class="pointer pay-method bank-transfer">Bank transfer <img src="{% static 'img/icons/icons8-bank-transfer-49-white.png' %}" alt="" srcset=""></button>
+    </div>
+  
+  </div>
+
+</div>
+{% endblock content %}
+
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+{% block js %}
+
+<script src="https://js.paystack.co/v2/inline.js"></script>
+<script>
+
+  const loader = document.querySelector(".loader");
+  const btnDiv = document.querySelector(".btn-container");
+  const failedTrans = document.querySelector(".alert-danger");
+  const successTrans = document.querySelector(".alert-success");
+
+  // paystack
+  const paystackPublicKey = "{{ PAYSTACK_PUBLIC_KEY }}";
+  const paystackSecretKey = "{{ PAYSTACK_SECRET_KEY }}";
+  const amount = "{{ total_amount_kobo }}";
+  const email = "{{ request.user.email }}";
+
+   // Get cookie value
+   function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  const orderConfirmation = (details) => {
+      return fetch("{% url 'payment:confirm-order' %}", {
+          method: "post",
+          body: JSON.stringify(details),
+          headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken
+      }
+      })
+  }
+
+  function payStackPayment() {
+    const paystack = new PaystackPop();
+    
+    paystack.newTransaction({
+      key: paystackPublicKey,
+                email: email,
+                amount: amount,
+                currency: "NGN",
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a random reference number
+                callback: function(response){
+                    // Send response to the server for verification if transaction is successful
+                    console.log(response);
+                    loader.classList.remove("d-none");
+                    btnDiv.classList.add("d-none");
+
+                    if (response.status === "success") {
+                      orderConfirmation(response).then(res => {
+                        alert('Payment successful. Transaction reference: ' + response.reference);
+                        location.href = "{% url 'cart:orders' %}";
+                      });                     
+                    }
+
+                },
+                onClose: function(){
+                    alert('Transaction was not completed, window closed.');
+                }
+    });
+    // paystack.openIframe();
+  }
+
+</script>
+{% endblock js %}

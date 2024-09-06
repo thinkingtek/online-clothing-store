@@ -1,0 +1,23 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+<div class="inner-container">
+  <div class="staff-controls">
+    <div class="link-div"><a href="{% url 'staff:products' %}">PRODUCTS</a></div>
+    <div class="link-div"><a href="{% url 'staff:orders' %}">ORDERS</a></div>
+    <div class="link-div"><a href="http://">DELIVERIES</a></div>
+    <div class="link-div"><a href="http://">CUSTOMERS</a></div>
+    <div class="link-div"><a href="{% url 'profile' %}">PROFILE</a></div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{%endblock footer %}

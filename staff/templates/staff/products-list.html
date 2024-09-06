@@ -1,0 +1,176 @@
+{% extends 'base.html' %} 
+{% load humanize %}
+{% load static %} 
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block modalContent %}
+<div class="modal-content delete-item-modal" id="delete-item-modal">
+  <p>Are you sure you want to delete ? </p>
+  <div class="btn-link">
+    <a href="" class="delete-link" id="cart-item-href">Delete</a>
+    <button type="button" class="pointer btn-x" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+{% endblock modalContent %}
+
+
+{% block content %}
+
+<div class="inner-container">
+  {% include 'notify.html' %}
+  <div class="username-email">
+    <h3>{{user.full_name}} </h3>
+    <h5>{{user.email}} </h5>
+  </div>
+  <div>
+    <h4 class="table-header">PRODUCTS</h4>
+    <div class="cart-table">
+      <table cellspacing=0>
+        <thead>
+          <tr>
+             <th>#</th>
+             <th>TITLE</th>
+             <th>STOCK</th>
+             <th>PRICE</th>
+             <th>DISCOUNT</th>
+             <th>DATE</th>
+             <th>ACTIONS</th>
+          </tr>
+       </thead>
+       <tbody>
+        {% for product in products %}
+        <tr>
+          <td>
+            {{ forloop.counter }}.
+          </td>
+         <td>
+           <a href="{{product.get_absolute_url}}">{{product.title}}</a>
+        </td>
+        <td>
+          <p class="item-quantity">{{product.stock}}</p>
+         </td>
+        <td>
+          <p class="">&#8358;{{product.price|intcomma}}</p>
+         </td>
+        <td>
+          {% if product.discount_price %}
+          <p class="">&#8358;{{product.discount_price|intcomma}}</p>
+          {% else %}
+          <p>-</p>
+          {% endif %}
+         </td>
+        <td>
+          <p>{{product.created_at|timesince}} ago</p>
+        </td>
+        <td>
+          <a href="{% url 'staff:update-product' product.slug %}" class="update-product">
+            <img class="delete-product" src="{% static '/img/icons/icons8-edit-30.png' %}" alt="" srcset="">
+          </a>
+          <button type="button" class="pointer remove" data-name="{% url 'staff:delete-product' product.slug %}" onclick="showDeleteModal(event)">
+            <img src="{% static '/img/icons/icons8-close-window-30.png' %}" alt="" srcset="" data-name="{% url 'staff:delete-product' product.slug %}">
+          </button>
+         </td>
+        </tr>
+        {% empty %}
+         <tr class="empty-tr">
+             <td colspan="7">
+               No products in store. 
+               <a class="empty-cart" href="{% url 'staff:add-product' %}">Add products
+               </a>
+             </td>
+         </tr>
+         {% endfor %}
+       </tbody>
+      </table>
+      <div class="continue-clear-cart">
+        <a class="continue-shopping" href="{{request.META.HTTP_REFERER}}"> &laquo; BACK</a>
+        <a class="add-products" href="{% url 'staff:add-product' %}"> <span>Add Product</span> <img class="add-product" src="{% static '/img/icons/icons8-plus-+-30.png' %}" alt="" srcset=""></a>
+     </div>
+  
+    </div>
+
+    <!-- Mobile view table -->
+  <section class="mobile-view-cart">
+    {% for product in products %}
+    <div class="mobile-cart-container">
+      <ul class="orders">
+        <li>
+          <span class="order-title">Title: </span><a href="{% url 'cart:order-details' order.pk %}">{{product.title}}</a>
+        </li>
+        <li>
+          <p><span class="order-title">Stock: </span>{{product.stock}}</p>
+        </li>
+        <li>
+          <p><span class="order-title">Amount: </span>&#8358;{{product.price}}</p>
+        </li>
+        <li>
+          <p><span class="order-title">Discount: </span>
+            {% if product.discount_price %}
+            &#8358;{{product.discount_price}}
+            {% else %}
+            -</p>
+            {% endif %}
+        </li>
+        <li>
+          <p><span class="order-title">Time: </span>{{product.created_at|timesince}}</p>
+        </li>
+      </ul>
+
+      <div class="links-btn">
+        <a href="{% url 'staff:update-product' product.slug %}" class="d-block link">update</a>
+        <button type="button" class="pointer remove" data-name="{% url 'staff:delete-product' product.slug %}" onclick="showDeleteModal(event)">
+          delete
+        </button>
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty-cart-div">
+      No products in store. <a class="empty-cart" href="{% url 'cart:product-list' %}">Add product
+             </a>
+    </div>
+    {% endfor %}
+    <div class="clear-shopping">
+      <a href="{{request.META.HTTP_REFERER|default:'/'}}" class="shopping">&laquo; BACK</a>
+      <a href="{% url 'staff:add-product' %}" class="shopping">Add product</a>
+    </div>
+  </section>
+    {% if is_paginated %}
+    <div class="paginators">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a  href="?page={{page_obj.previous_page_number}}">Prev</a> 
+      {% endif %}
+  
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="current-page" href="?page={{num}}">{{num}}</a>
+  
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{num}}">{{num}}</a>
+        {% endif %}
+      {% endfor %}
+  
+      {% if page_obj.has_next %}
+        <a href="?page={{page_obj.next_page_number}}">Next</a>
+        <a class="last-page" href="?page={{page_obj.paginator.num_pages}}">Last</a> 
+      {% endif %}
+  
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+<!-- " -->
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+{% block js %}
+<script src="{% static '/js/product-delete.js' %}"></script>
+{% endblock js %}

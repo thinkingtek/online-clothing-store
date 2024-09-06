@@ -1,0 +1,49 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load template_tags %}
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+
+<div class="inner-container">
+  <div class="profile-head">
+    <div class="profile-pic">
+      <img src="{{user.profile.image.url}}" alt="" srcset="">
+    </div>
+    <div class="username-email">
+      <h3>{{username}} </h3>
+      <h5>{{email}} </h5>
+      <h5>{{request.user.full_name}} </h5>
+    </div>
+  </div>
+
+  <div class="">
+    <a href="{% url 'cart:orders' %}">Orders</a>
+  </div>
+  {% if user|has_group:"staff" %}
+  <div class="">
+    <a href="{% url 'staff:products' %}">Products</a>
+  </div>
+  {% endif %}
+  <div class="">
+    <a href="{% url 'cart:clear-orders' %}">Clear Orders</a>
+  </div>
+  <div class="">
+    <a href="{% url 'password-change' %}">Change Password</a>
+  </div>
+  {% if user.is_superuser %}
+  <div class="">
+    <a href="{% url 'delete-inactive' %}">Delete inactive Users</a>
+  </div>
+  {% endif %}
+
+</div>
+
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}

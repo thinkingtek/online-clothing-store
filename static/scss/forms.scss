@@ -1,0 +1,227 @@
+@import "variables";
+
+body {
+  margin-top: 0;
+  background-color: #f3f3f3;
+}
+
+main {
+  background: url("/static/img/background/suit-tie.jpg") no-repeat center center/cover;
+  padding: 1.3rem;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.form-container {
+  z-index: 2;
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0.8rem 1.3rem;
+  border-radius: 7px;
+  background-color: $form-bg-cl;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+
+  .error-container {
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 0.38rem;
+    margin-top: 0.3rem;
+
+    h5 {
+      color: red;
+      font-weight: lighter;
+      font-size: 0.84rem;
+      text-align: justify;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    font-family: "roboto-light";
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    color: $blue-text;
+  }
+
+  .error {
+    font-size: 0.84rem;
+    color: red;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      font-size: 0.8rem;
+      line-height: 1.05rem;
+    }
+  }
+
+  .form-input {
+    margin-bottom: 0.4rem;
+
+    .delete {
+      background-color: red;
+    }
+
+    label {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-family: "roboto-regular";
+      padding-bottom: 0.05rem;
+      cursor: pointer;
+      color: rgb(48, 47, 47);
+      letter-spacing: 0.03rem;
+    }
+
+    .help-text {
+      line-height: 1.05rem;
+      font-size: 0.8rem;
+      color: rgb(87, 87, 87);
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 0.46rem 0.5rem;
+      border-radius: 5px;
+      border: 2px solid #efebeb;
+      outline: none;
+      color: #777777;
+      font-weight: bold;
+    }
+
+    input[type="submit"] {
+      cursor: pointer;
+      color: white;
+      margin-top: 0.2rem;
+      padding: 0.4rem 0.5rem;
+      border: none;
+      text-align: center;
+      font-family: "roboto-light";
+      letter-spacing: 0.08rem;
+      font-size: 0.9rem;
+      background-color: $blue;
+
+      &:hover {
+        background-color: $overblue;
+      }
+    }
+
+
+  }
+
+  .eyepass {
+    position: relative;
+
+    .eye {
+      position: absolute;
+      right: 0.5rem;
+      top: 1.8rem;
+      width: 0.81rem;
+      cursor: pointer;
+    }
+
+    .eye-close {
+      display: none;
+      background: transparent;
+    }
+
+    #hidepass {
+      visibility: hidden;
+    }
+
+    #showpass {
+      visibility: visible;
+    }
+
+    .show {
+      visibility: visible;
+    }
+
+    .hide {
+      visibility: hidden;
+    }
+  }
+
+  .remember-password {
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+
+    label {
+      font-size: 0.94rem;
+      color: rgb(82, 82, 82);
+      margin-left: 0.3rem;
+      cursor: pointer;
+    }
+
+    input {
+      cursor: pointer;
+    }
+  }
+
+  .have-account {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-right: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    a {
+      display: inline-block;
+      background-color: $overblue;
+      text-decoration: none;
+      color: white;
+      font-size: 0.86rem;
+      padding: 0.35rem;
+      font-weight: 505;
+      margin-right: 0.3rem;
+      border-radius: 3px;
+      border: 1.5px solid $blue;
+      transition: 0.3s ease-out;
+
+      &:hover {
+        background-color: transparent;
+        color: black;
+      }
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+
+    a.home {
+      background-color: transparent;
+      border-color: $blue;
+      color: $blue;
+
+      &:hover {
+        background-color: $blue;
+        color: white;
+      }
+    }
+  }
+
+  .forgot-password {
+    color: $blue;
+
+    &:hover {
+      color: $gray-dark;
+    }
+  }
+}

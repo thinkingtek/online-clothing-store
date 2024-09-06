@@ -1,0 +1,38 @@
+.payment-select {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; }
+  .payment-select h4 {
+    font-family: "roboto-medium"; }
+  .payment-select .payment-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 1rem; }
+  .payment-select .paypal {
+    margin: 0.4rem 0; }
+  .payment-select div.alert {
+    display: none; }
+
+.payment-container .pay-method {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  padding: 0.4rem 0.3rem;
+  background-color: black;
+  color: white;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  transition: 0.2s ease-in-out;
+  margin-bottom: 0.5rem; }
+  .payment-container .pay-method img {
+    width: 30px; }
+.payment-container .paystack:hover {
+  background-color: #4e4e4e; }

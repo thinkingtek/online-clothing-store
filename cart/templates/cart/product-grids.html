@@ -1,0 +1,33 @@
+{% load humanize %}
+<div class="product-grid no-overflow {{category}}">
+  <div class="product-img">
+    <img src="{{product.image_1.url}}" alt="">
+    <div class="categories">
+      {% for category in product.categories.all %}
+        <a href="{% url 'cart:category-products' category.name %}">{{category}}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="product-details">
+    <div class="product-name flex-center-justify">
+      <a href="{{product.get_absolute_url}}"><h4>{{product.title|title}}</h4></a>
+    </div>
+    <div class="product-tags">
+      <p>Tags:</p>
+      {% for tag in product.tags.all %}
+      <a href="{% url 'cart:tag-products' tag.name %}">{{tag}}</a>
+      {% endfor %}
+    </div>
+    {% if product.discount_price %}
+    <div class="product-price-discount flex-center">
+      <p>&#8358;{{product.price|intcomma}}</p>
+      <p>&#8358;{{product.discount_price|intcomma}}</p>
+    </div>
+    {% else %}
+    <div class="product-price flex-center-justify">
+      <p>&#8358;{{product.price|intcomma}}</p>
+    </div>
+    {% endif %}
+    
+  </div>
+</div>

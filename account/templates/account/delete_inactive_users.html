@@ -1,0 +1,14 @@
+{% extends 'form_base.html' %}
+
+{% block form %}
+
+<h2>Run function</h2>
+    <div class="form-input">
+        <p>Users deleted successfully</p>
+</div>
+  <div class="have-account">
+    <a  href="{% url 'login' %}">Login</a>
+    <a  href="{% url 'signin' %}">Signup</a>
+    <a class="home" href="{% url 'ecomm:home' %}" >Home</a>
+  </div>
+{% endblock form %}

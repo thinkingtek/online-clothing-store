@@ -1,0 +1,13 @@
+{% extends 'form_base.html' %}
+
+{% block form %}
+
+<h2>Delete spam Orders</h2>
+    <div class="form-input">
+        <p>Orders deleted successfully</p>
+</div>
+  <div class="have-account">
+    <a  href="{% url 'profile' %}">&laquo;Back</a>
+    <a class="home" href="{% url 'ecomm:home' %}" >Home</a>
+  </div>
+{% endblock form %}
