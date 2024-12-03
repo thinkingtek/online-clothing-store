@@ -1,10 +1,12 @@
-
+version: '3'
 services:
-  web:
+  webapp:
     build: .
-    container_name: ecommerce
-    command: python manage.py runserver 0.0.0.0:8000
+    container_name: online-store
+    
+    command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
+    env_file: .env
     ports:
       - "8000:8000"

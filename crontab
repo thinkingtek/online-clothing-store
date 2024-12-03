@@ -1,0 +1,3 @@
+# Run at every minute
+
+- - - - - python manage.py runscript delete_unverified_users

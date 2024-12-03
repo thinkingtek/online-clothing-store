@@ -5,12 +5,17 @@ from django.core.mail import send_mail
 from django.db.models import Q, Count
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .models import *
-from cart.utils import *
-from .forms import *
 from cart.models import Product
 from django.conf import settings
-# Create your views here.
+from account.tasks import *
+from cart.utils import *
+from .models import *
+from .forms import *
+
+
+# Task to repeat in 8days
+delete_unpaid_orders(repeat=691200)
+delete_unverified_users(repeat=691200)
 
 
 def searchForm(request):
@@ -75,7 +80,6 @@ class ContactView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context["order"] = get_or_set_order_session(self.request)
         context["title"] = 'Ebisco | Contact Us'
         context["contact_active"] = True
         return context
@@ -103,57 +107,26 @@ class SearchResults(ListView):
         return context
 
 
-def searchProducts(request):
-    products = Product.objects.filter(active=True)
-    if request.method == "GET":
-        search = request.GET.get('search')
-        queryset = products.filter(
-            Q(title__icontains=search) |
-            Q(tags__name__icontains=search) |
-            Q(categories__name__icontains=search)).distinct()
-        page = request.GET.get('page')
-        paginator = Paginator(queryset, 1)
-        try:
-            products = paginator.page(page)
-        except PageNotAnInteger:
-            products = paginator.page(1)
-        except EmptyPage:
-            products = paginator.page(paginator.num_pages)
-    context = {
-        'search': search,
-        # 'form': form,
-        'products': products,
-        'title': 'Ebisco Fashionz | search results',
-    }
-    return render(request, 'ecommerce/search.html', context)
-
-
 # def searchProducts(request):
-
-#     search = request.GET.get('search')
 #     products = Product.objects.filter(active=True)
-#     # queryset = products
-#     # paginator = Paginator(queryset, 1)
-#     # try:
-#     #     queryset = paginator.page(page)
-#     # except EmptyPage:
-#     #     queryset = paginator.page(paginator.num_pages)
-
-#     if search:
-#         queryset = []
-#         page = request.GET.get('page', 1)
+#     if request.method == "GET":
+#         search = request.GET.get('search')
 #         queryset = products.filter(
-#         Q(title__icontains=search) |
-#         Q(tags__name__icontains=search) |
-#         Q(categories__name__icontains=search)).distinct()
+#             Q(title__icontains=search) |
+#             Q(tags__name__icontains=search) |
+#             Q(categories__name__icontains=search)).distinct()
+#         page = request.GET.get('page')
 #         paginator = Paginator(queryset, 1)
-#         queryset = paginator.page(page)
-#     else:
-#         queryset = None
-
+#         try:
+#             products = paginator.page(page)
+#         except PageNotAnInteger:
+#             products = paginator.page(1)
+#         except EmptyPage:
+#             products = paginator.page(paginator.num_pages)
 #     context = {
 #         'search': search,
-#         'products': queryset,
+#         # 'form': form,
+#         'products': products,
 #         'title': 'Ebisco Fashionz | search results',
 #     }
 #     return render(request, 'ecommerce/search.html', context)

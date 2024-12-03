@@ -41,12 +41,13 @@ INSTALLED_APPS = [
 
     # packages
     'django.contrib.humanize',
-    'django.contrib.postgres',
+    # 'django.contrib.postgres',
     'django_cleanup.apps.CleanupConfig',
     'django_filters',
     'multiselectfield',
     'rest_framework',
     'django_crontab',
+    'background_task',
 
     # my apps
     'account.apps.AccountConfig',
@@ -163,8 +164,12 @@ AUTH_USER_MODEL = 'account.User'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # CRONJOBS = [
-#     ('* * * * *', 'django.core.management.call_command', ['user-check']),
+#     # ('* * * * *', 'account.cron.delete_users', '>> /cron/django_cron.log 2>&1'),
+#     # ('* * * * *', 'django.core.management.call_command', ['user-check']),
 # ]
+
+BACKGROUND_TASK_RUN_ASYNC = True
+BACKGROUND_TASK_MAX_RUN_TIME = 600  # (max runtime for a task in secs)
 
 if DEBUG is False:
     SESSION_COOKIE_SECURE = True

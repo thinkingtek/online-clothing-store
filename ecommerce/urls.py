@@ -1,5 +1,4 @@
 from django.urls import path
-# from cart.views import ProductDetail
 from .views import *
 from cart.views import ProductDetail
 
