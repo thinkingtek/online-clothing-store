@@ -52,6 +52,7 @@
    - Responsive Design for Mobile and Desktop.
    - Modal for deleting specific cart item, and clearing of cart.
    - Total amount changes in on the frontend when you change shipping method.
+   - Used Django background tasks library to delete unverified users after 10days of registration and unpaid orders after 30days
    - Unit testing can be added later
 
 6. Testing
